@@ -1,0 +1,17 @@
+body {
+    background: white;
+}
+
+#nBlock {
+    text-align: center;
+}
+
+ul#errorList  {
+    
+}
+
+#nsscode {
+    text-align: center;
+    width: 50%;;
+    margin-left: 25%;
+}
