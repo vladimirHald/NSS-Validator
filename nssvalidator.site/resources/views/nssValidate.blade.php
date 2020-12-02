@@ -19,7 +19,7 @@
             <div class="alert alert-success">
                     <span>NSS Код прошел валидацию успешно</span>
             </div>
-            {{session()->put('isChecked', false)}}
+            
         @endif
     @endif
 

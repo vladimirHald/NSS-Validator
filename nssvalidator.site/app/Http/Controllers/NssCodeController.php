@@ -9,7 +9,7 @@ class NssCodeController extends Controller {
     
     public function validateCode(NssCodeRequest $req) {
         
-       $req->session()->put('isChecked', true);
+       $req->session()->flash('isChecked', true);
         return redirect()->route('nssValidate');
     }
 
