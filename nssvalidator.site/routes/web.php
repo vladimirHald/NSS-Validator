@@ -17,8 +17,10 @@ Route::get('/', function () {
     return view('home');
 })->name('home');
 
-Route::any('/nssValidate', 'App\Http\Controllers\CheckValidationController@checkValidation' )->name('nssValidate');
+Route::any('/nssValidate', function () {
+    return view('nssValidate');
+})->name('nssValidate');
 
 
-Route::post('/nssValidate/submit', 'App\Http\Controllers\NssCodeController@validateCode')->name('nsscode-form');
+Route::post('/nssValidate/submit', 'App\Http\Controllers\NssCodeController@validateInput')->name('nsscode-form');
 

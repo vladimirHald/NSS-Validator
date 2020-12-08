@@ -25,7 +25,7 @@ class NssCodeRequest extends FormRequest
     public function rules()
     {
         return [
-            'nsscode' => 'required|numeric|digits_between:15,15'
+            'nsscode' => 'required|between:15,15'
         ];
     }
 
@@ -40,8 +40,7 @@ class NssCodeRequest extends FormRequest
     {
         return [
             'nsscode.required' => 'Поле является обязательным',
-            'nsscode.digits_between' => 'Поле может содержать только 15 символов',
-            'nsscode.numeric' => 'Поле может содержать только цифры'
+            'nsscode.between' => 'Поле может содержать только 15 символов'
         ];
     }
     

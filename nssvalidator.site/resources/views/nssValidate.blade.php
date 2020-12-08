@@ -1,5 +1,6 @@
 @extends('layouts.app')
 
+
 @section('title-block') NSS Validator @endsection
 
 @section('content')
@@ -29,13 +30,15 @@
             <label for="nsscode">
                 <h2>Введите NSS-Код: </h2>
             </label>
-            <input type="text" name="nsscode" id="nsscode" class="form-control">
+            <input type="text" name="nsscode" id="nsscode" class="form-control" onkeyup="onNssChange()">
+            <span id="nssCodePregCheck"></span>
             <br>
-            <button type="submit" class="btn btn-primary">Проверить</button>
+            <button type="submit" class="btn btn-primary" id="nssCheckBtn" disabled>Проверить</button>
         </div>
 
     </form>
-
+    
 
 </div>
+<script src="js/app.js"></script>
 @endsection
