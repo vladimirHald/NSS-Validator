@@ -26,13 +26,13 @@ class NssCodeRequest extends FormRequest
     {
         return [
             'nssFull' => 'required|between:15,15',
-            'nssSex' => '',
-            'nssYear' => '',
-            'nssMonth' => '',
-            'nssDepartment' => '',
-            'nssComune' => '',
-            'nssOrderNumber' => '',
-            'nssControlKey' => ''
+            'nssSex' => 'required|between:1,1',
+            'nssYear' => 'required|between:2,2',
+            'nssMonth' => 'required|between:2,2',
+            'nssDepartment' => 'required|between:2,3',
+            'nssComune' => 'required|between:2,3',
+            'nssOrderNumber' => 'required|between:3,3',
+            'nssControlKey' => 'required|between:2,2'
         ];
     }
 
@@ -47,7 +47,21 @@ class NssCodeRequest extends FormRequest
     {
         return [
             'nsscode.required' => 'Поле является обязательным',
-            'nsscode.between' => 'Поле может содержать только 15 символов'
+            'nssSex.between' => 'Поле Sex может содержать только 1 символ',
+            'nssSex.required' => 'Поле Sex является обязательным',
+            'nssYear.between' => 'Поле Year может содержать только 2 символа',
+            'nssYear.required' => 'Поле Year является обязательным',
+            'nssMonth.between' => 'Поле Month может содержать только 2 символа',
+            'nssMonth.required' => 'Поле Month является обязательным',
+            'nssDepartment.between' => 'Поле Department может содержать от 2 до 3 символов',
+            'nssDepartment.required' => 'Поле Department является обязательным',
+            'nssComune.between' => 'Поле Comune может содержать от 2 до 3 символов',
+            'nssComune.required' => 'Поле Comune является обязательным',
+            'nssOrderNumber.between' => 'Поле OrderNumber может содержать только 3 символа',
+            'nssOrderNumber.required' => 'Поле OrderNumber является обязательным',
+            'nssControlKey.between' => 'Поле ControlKey может содержать только 2 символа',
+            'nssControlKey.required' => 'Поле ControlKey является обязательным',
+
         ];
     }
     

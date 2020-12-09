@@ -38,67 +38,36 @@ class Nss {
        $this->controlKey = substr($fullCode, 13, 2);
        
     }
-    function setFullNssCode($nssCode) {
-        $this->fullNssCode = $nssCode;
-    }
-
+    
     function getFullNssCode() {
         return $this->fullNssCode;
     }
 
-    function setSex($nssSex) {
-        $this->nssSex = $nssSex;
-    }
-
     function getSex() {
-        return $this->nssSex;
-    }
-
-    function setYear($nssYear) {
-        $this->nssYear = $nssYear;
+        return $this->sex;
     }
 
     function getYear() {
-        return $this->nssYear;
-    }
-
-    function setMonth($nssMonth) {
-        $this->nssMonth = $nssMonth;
+        return $this->year;
     }
 
     function getMonth() {
-        return $this->nssMonth;
-    }
-
-    function setDepartment($nssDepartment) {
-        $this->nssDepartment = $nssDepartment;
+        return $this->month;
     }
 
     function getDepartment() {
-        return $this->nssDepartment;
-    }
-
-    function setComune($nssComune) {
-        $this->nssComune = $nssComune;
+        return $this->department;
     }
 
     function getComune() {
-        return $this->nssComune;
-    }
-
-    function setOrderNumber($nssOrderNumber) {
-        $this->nssOrderNumber = $nssOrderNumber;
+        return $this->comune;
     }
 
     function getOrderNumber() {
-        return $this->nssOrderNumber;
-    }
-
-    function setControlKey($nssControlKey) {
-        $this->nssControlKey = $nssControlKey;
+        return $this->orderNumber;
     }
 
     function getControlKey() {
-        return $this->nssControlKey;
+        return $this->controlKey;
     }
 }
