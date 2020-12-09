@@ -49900,10 +49900,19 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports) {
 
 window.onNssChange = function onNssChange() {
-  var nssInput = document.getElementById("nsscode");
   var nssPregCheck = document.getElementById("nssCodePregCheck");
   var nssCheckBtn = document.getElementById("nssCheckBtn");
-  var value = nssInput.value;
+  var nssFull = document.getElementById("nssFull");
+  var nssSex = document.getElementById("nssSex").value;
+  var nssYear = document.getElementById("nssYear").value;
+  var nssMonth = document.getElementById("nssMonth").value;
+  var nssDepartment = document.getElementById("nssDepartment").value;
+  var nssComune = document.getElementById("nssComune").value;
+  var nssOrderNumber = document.getElementById("nssOrderNumber").value;
+  var nssControlKey = document.getElementById("nssControlKey").value;
+  var fullGeneratedCode = nssSex + nssYear + nssMonth + nssDepartment + nssComune + nssOrderNumber + nssControlKey;
+  nssFull.value = fullGeneratedCode;
+  var value = nssFull.value;
 
   if (value.substring(0, 13).match(/^\d{5}(\d{2}|2a|2b)\d{6}$/i) && value.length == 15) {
     nssPregCheck.innerHTML = "Код введен верно, можно продолжить";
@@ -49916,26 +49925,14 @@ window.onNssChange = function onNssChange() {
 
 /***/ }),
 
-/***/ "./resources/sass/app.scss":
-/*!*********************************!*\
-  !*** ./resources/sass/app.scss ***!
-  \*********************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-
 /***/ 0:
-/*!***********************************************************************************************************************!*\
-  !*** multi ./resources/js/app.js ./resources/sass/app.scss ./resources/css/bootstrap.min.css ./resources/css/app.css ***!
-  \***********************************************************************************************************************/
+/*!*********************************************************************************************!*\
+  !*** multi ./resources/js/app.js ./resources/css/bootstrap.min.css ./resources/css/app.css ***!
+  \*********************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(/*! D:\web\projects\NSS-Validator\nssvalidator.site\resources\js\app.js */"./resources/js/app.js");
-__webpack_require__(/*! D:\web\projects\NSS-Validator\nssvalidator.site\resources\sass\app.scss */"./resources/sass/app.scss");
 __webpack_require__(/*! D:\web\projects\NSS-Validator\nssvalidator.site\resources\css\bootstrap.min.css */"./resources/css/bootstrap.min.css");
 module.exports = __webpack_require__(/*! D:\web\projects\NSS-Validator\nssvalidator.site\resources\css\app.css */"./resources/css/app.css");
 

@@ -6,12 +6,20 @@ body {
     text-align: center;
 }
 
-ul#errorList  {
-    
-}
+
 
 #nsscode {
     text-align: center;
-    width: 50%;;
+    width: 50%;
     margin-left: 25%;
+}
+
+#nssSex, #nssYear, #nssMonth, #nssDepartment, #nssComune, #nssOrderNumber, #nssControlKey {
+    text-align: center;
+    width: 50%;
+    margin: 2% 25%;
+}
+
+#nssDetail {
+    
 }

@@ -28,16 +28,37 @@
         @csrf
         <div class="form-group">
             <label for="nsscode">
-                <h2>Введите NSS-Код: </h2>
+                <h2>Введите NSS-данные: </h2>
             </label>
-            <input type="text" name="nsscode" id="nsscode" class="form-control" onkeyup="onNssChange()">
-            <span id="nssCodePregCheck"></span>
+            
+            <div id="nssDetail">
+                <input type="text" name="nssSex" id="nssSex" class="form-control" onchange="onNssChange()">
+                <label for="nssSex">Nss Sex(Male or Female: 0 or 1)</label>
+                <input type="text" name="nssYear" id="nssYear" class="form-control" onchange="onNssChange()">
+                <label for="nssYear">Nss Year</label>
+                <input type="text" name="nssMonth" id="nssMonth" class="form-control" onchange="onNssChange()">
+                <label for="nssMonth">Nss Month</label>
+                <input type="text" name="nssDepartment" id="nssDepartment" class="form-control" onchange="onNssChange()">
+                <label for="nssDepartment">Nss Department</label>
+                <input type="text" name="nssComune" id="nssComune" class="form-control" onchange="onNssChange()">
+                <label for="nssComune">Nss Comune</label>
+                <input type="text" name="nssOrderNumber" id="nssOrderNumber" class="form-control" onchange="onNssChange()">
+                <label for="nssOrderNumber">Nss Order Number</label>
+                <input type="text" name="nssControlKey" id="nssControlKey" class="form-control" onchange="onNssChange()">
+                <input type="text" name="nssFull" id="nssFull" class="form-control" onchange="onNssChange()" readonly>
+                <label for="nssControlKey">Nss Control Key</label>
+            </div>
             <br>
+            <p>
+            <span id="nssCodePregCheck"></span>
+            <p>
             <button type="submit" class="btn btn-primary" id="nssCheckBtn" disabled>Проверить</button>
         </div>
 
     </form>
-    
+    <div id="app">
+
+    </div>
 
 </div>
 <script src="js/app.js"></script>

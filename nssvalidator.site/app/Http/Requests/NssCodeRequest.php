@@ -25,7 +25,14 @@ class NssCodeRequest extends FormRequest
     public function rules()
     {
         return [
-            'nsscode' => 'required|between:15,15'
+            'nssFull' => 'required|between:15,15',
+            'nssSex' => '',
+            'nssYear' => '',
+            'nssMonth' => '',
+            'nssDepartment' => '',
+            'nssComune' => '',
+            'nssOrderNumber' => '',
+            'nssControlKey' => ''
         ];
     }
 

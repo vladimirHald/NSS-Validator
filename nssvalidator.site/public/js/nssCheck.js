@@ -94,10 +94,19 @@
 /***/ (function(module, exports) {
 
 window.onNssChange = function onNssChange() {
-  var nssInput = document.getElementById("nsscode");
   var nssPregCheck = document.getElementById("nssCodePregCheck");
   var nssCheckBtn = document.getElementById("nssCheckBtn");
-  var value = nssInput.value;
+  var nssFull = document.getElementById("nssFull");
+  var nssSex = document.getElementById("nssSex").value;
+  var nssYear = document.getElementById("nssYear").value;
+  var nssMonth = document.getElementById("nssMonth").value;
+  var nssDepartment = document.getElementById("nssDepartment").value;
+  var nssComune = document.getElementById("nssComune").value;
+  var nssOrderNumber = document.getElementById("nssOrderNumber").value;
+  var nssControlKey = document.getElementById("nssControlKey").value;
+  var fullGeneratedCode = nssSex + nssYear + nssMonth + nssDepartment + nssComune + nssOrderNumber + nssControlKey;
+  nssFull.value = fullGeneratedCode;
+  var value = nssFull.value;
 
   if (value.substring(0, 13).match(/^\d{5}(\d{2}|2a|2b)\d{6}$/i) && value.length == 15) {
     nssPregCheck.innerHTML = "Код введен верно, можно продолжить";
