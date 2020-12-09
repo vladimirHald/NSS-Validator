@@ -3,7 +3,8 @@
 namespace App\Models;
 
 
-class Nss {
+class Nss
+{
     /** @var string $fullNssCode Full NSS Code */
     private $fullNssCode = "Undefined";
     /** @var mixed $sex 1 - male, 2 - female */
@@ -21,53 +22,60 @@ class Nss {
     /** @var mixed $controlKey Is the "control key", 01 to 97, equal to 97-(the rest of the number modulo 97) or to 97 if the number is a multiple of 97*/
     private $controlKey = null;
 
-    function __construct($fullCode) {
+    function __construct($fullCode)
+    {
         $this->fullNssCode = $fullCode;
-       $this->sex = substr($fullCode, 0, 1);
-       $this->year = substr($fullCode, 1, 2);
-       $this->month = substr($fullCode, 3, 2);
-       if(strstr($fullCode, "2a") || strstr($fullCode, "2b")) {
-        $this->department = substr($fullCode, 5, 2);
-        $this->comune = substr($fullCode, 7, 3);
-       }
-       else {
-        $this->department = substr($fullCode, 5, 3);
-        $this->comune = substr($fullCode, 8, 2);
-       }
-       $this->orderNumber = substr($fullCode, 10, 3);
-       $this->controlKey = substr($fullCode, 13, 2);
-       
+        $this->sex = substr($fullCode, 0, 1);
+        $this->year = substr($fullCode, 1, 2);
+        $this->month = substr($fullCode, 3, 2);
+        if (strstr($fullCode, "2a") || strstr($fullCode, "2b")) {
+            $this->department = substr($fullCode, 5, 2);
+            $this->comune = substr($fullCode, 7, 3);
+        } else {
+            $this->department = substr($fullCode, 5, 3);
+            $this->comune = substr($fullCode, 8, 2);
+        }
+        $this->orderNumber = substr($fullCode, 10, 3);
+        $this->controlKey = substr($fullCode, 13, 2);
     }
-    
-    function getFullNssCode() {
+
+    function getFullNssCode()
+    {
         return $this->fullNssCode;
     }
 
-    function getSex() {
+    function getSex()
+    {
         return $this->sex;
     }
 
-    function getYear() {
+    function getYear()
+    {
         return $this->year;
     }
 
-    function getMonth() {
+    function getMonth()
+    {
         return $this->month;
     }
 
-    function getDepartment() {
+    function getDepartment()
+    {
         return $this->department;
     }
 
-    function getComune() {
+    function getComune()
+    {
         return $this->comune;
     }
 
-    function getOrderNumber() {
+    function getOrderNumber()
+    {
         return $this->orderNumber;
     }
 
-    function getControlKey() {
+    function getControlKey()
+    {
         return $this->controlKey;
     }
 }

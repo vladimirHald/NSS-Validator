@@ -18,9 +18,8 @@
     @elseif(session()->has('isChecked'))
         @if(session('isChecked'))
             <div class="alert alert-success">
-                    <span>NSS Код прошел валидацию успешно</span>
-            </div>
-            
+                <span>NSS Код прошел валидацию успешно</span>
+             </div>
         @endif
     @endif
 
@@ -30,7 +29,7 @@
             <label for="nsscode">
                 <h2>Введите NSS-данные: </h2>
             </label>
-            
+
             <div id="nssDetail">
                 <input type="text" name="nssFull" id="nssFull" class="form-control" onchange="onNssChange()">
                 <label for="nssFull">Nss Full Code</label>
@@ -51,8 +50,8 @@
             </div>
             <br>
             <p>
-            <span id="nssCodePregCheck"></span>
-            <p>
+                <span id="nssCodePregCheck"></span>
+            </p>
             <button type="submit" class="btn btn-primary" id="nssCheckBtn" disabled>Проверить</button>
         </div>
     </form>
