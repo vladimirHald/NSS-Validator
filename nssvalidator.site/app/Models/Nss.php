@@ -7,20 +7,20 @@ class Nss
 {
     /** @var string $fullNssCode Full NSS Code */
     private $fullNssCode = "Undefined";
-    /** @var mixed $sex 1 - male, 2 - female */
-    private $sex = null;
-    /** @var mixed $year Last two digits of the year of birth */
-    private $year = null;
-    /** @var mixed $month Is the month of birth. Usually from 01 to 12 */
-    private $month = null;
+    /** @var int $sex 1 - male, 2 - female */
+    private $sex = 0;
+    /** @var int $year Last two digits of the year of birth */
+    private $year = 0;
+    /** @var int $month Is the month of birth. Usually from 01 to 12 */
+    private $month = 0;
     /** @var mixed $department Is the number of Department of origin. Can contain two digits or one digit and one char */
     private $department = null;
-    /** @var mixed $comune  Is the commune of origin. Can contain 3 digits in metropolitan France or 2 digits for overseas*/
-    private $comune = null;
-    /** @var mixed $orderNumber Is an order number to distinguish people being born at the same place in the same year and month.*/
-    private $orderNumber = null;
-    /** @var mixed $controlKey Is the "control key", 01 to 97, equal to 97-(the rest of the number modulo 97) or to 97 if the number is a multiple of 97*/
-    private $controlKey = null;
+    /** @var int $comune  Is the commune of origin. Can contain 3 digits in metropolitan France or 2 digits for overseas*/
+    private $comune = 0;
+    /** @var int $orderNumber Is an order number to distinguish people being born at the same place in the same year and month.*/
+    private $orderNumber = 0;
+    /** @var int $controlKey Is the "control key", 01 to 97, equal to 97-(the rest of the number modulo 97) or to 97 if the number is a multiple of 97*/
+    private $controlKey = 0;
 
     function __construct($fullCode)
     {
@@ -31,7 +31,8 @@ class Nss
         if (strstr($fullCode, "2a") || strstr($fullCode, "2b")) {
             $this->department = substr($fullCode, 5, 2);
             $this->comune = substr($fullCode, 7, 3);
-        } else {
+        }
+        else {
             $this->department = substr($fullCode, 5, 3);
             $this->comune = substr($fullCode, 8, 2);
         }
