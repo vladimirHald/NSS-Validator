@@ -27,7 +27,7 @@ class Nss
     /** @var bool $isTemporary */
     private $isTemporary = false;
     
-    private $checkSum = 0;
+    private $correctCheckSum = 0;
 
     private $exceptions;
 
@@ -49,7 +49,7 @@ class Nss
         $this->comune = substr($fullCode, 11 - $departmentNumberCount, $departmentNumberCount == 3? 2 : 3);
         $this->orderNumber = substr($fullCode, 10, 3);
         $this->controlKey = substr($fullCode, 13, 2);
-        $this->setChecksum($fullCode);
+        $this->correctCheckSum = $this->calculateChecksum();
     }
 
     function getFullNssCode()
@@ -132,12 +132,12 @@ class Nss
         return $this->exceptions->has(NssExceptions::Corsica2b);
     }
     
-    function setChecksum($fullCode) {
+    function calculateChecksum() {
             $correctNumber = 0;
             if($this->isCorsica()) {
-                $fullCode = substr($fullCode, 0, 6) . '0' . substr($fullCode, 7);
+                $fullCode = substr($this->fullNssCode, 0, 6) . '0' . substr($this->fullNssCode, 7);
                 $correctNumber = $this->isCorsica2a() ? self::CORSICA_2A_CORRECT_NUMBER : self::CORSICA_2B_CORRECT_NUMBER;
             }
-            $this->checkSum = 97 - (($fullCode - $correctNumber) % 97);
+            return 97 - (($fullCode - $correctNumber) % 97);
     }
 }
