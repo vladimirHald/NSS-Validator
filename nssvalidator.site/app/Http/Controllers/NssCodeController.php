@@ -19,6 +19,7 @@ class NssCodeController extends Controller {
         $errors = new MessageBag();
         $nssCodeString = $nssValues["nssFull"];
         $nssObj = new Nss($nssCodeString);
+        dd($nssObj);
         if ($nssValues["nssSex"] != $nssObj->getSex())
             $errors->add("SexField", "Неправильно введено поле Sex");
 

@@ -25,25 +25,31 @@ class Nss
     /** @var int $controlKey Is the "control key", 01 to 97, equal to 97-(the rest of the number modulo 97) or to 97 if the number is a multiple of 97*/
     private $controlKey = 0; 
     /** @var bool $isTemporary */
-    private $isTemporary = false; 
+    private $isTemporary = false;
+    
+    private $checkSum = 0;
 
     private $exceptions;
 
+    public const CORSICA_2A_CORRECT_NUMBER = 1000000;
+    public const CORSICA_2B_CORRECT_NUMBER = 2000000;
+
     function __construct($fullCode)
     {
+        
         $this->exceptions = new NssExceptions();
         $this->detectTemporary($fullCode);
+        $this->detectCorsica($fullCode);
         $departmentNumberCount = $this->getDepartmentNumberOfSigns();
         $this->fullNssCode = $fullCode;
         $this->sex = substr($fullCode, 0, 1);
         $this->year = substr($fullCode, 1, 2);
         $this->month = substr($fullCode, 3, 2);
-        $this->detectCorsica($fullCode);
         $this->department = substr($fullCode, 5, $departmentNumberCount);
         $this->comune = substr($fullCode, 11 - $departmentNumberCount, $departmentNumberCount == 3? 2 : 3);
         $this->orderNumber = substr($fullCode, 10, 3);
         $this->controlKey = substr($fullCode, 13, 2);
-        
+        $this->setChecksum($fullCode);
     }
 
     function getFullNssCode()
@@ -116,5 +122,22 @@ class Nss
     function isCorsica(): bool {
         return $this->exceptions->has(NssExceptions::Corsica2a)
                || $this->exceptions->has(NssExceptions::Corsica2b);
+    }
+
+    function isCorsica2a(): bool {
+        return $this->exceptions->has(NssExceptions::Corsica2a);
+    }
+
+    function isCorsica2b(): bool {
+        return $this->exceptions->has(NssExceptions::Corsica2b);
+    }
+    
+    function setChecksum($fullCode) {
+            $correctNumber = 0;
+            if($this->isCorsica()) {
+                $fullCode = substr($fullCode, 0, 6) . '0' . substr($fullCode, 7);
+                $correctNumber = $this->isCorsica2a() ? self::CORSICA_2A_CORRECT_NUMBER : self::CORSICA_2B_CORRECT_NUMBER;
+            }
+            $this->checkSum = 97 - (($fullCode - $correctNumber) % 97);
     }
 }
