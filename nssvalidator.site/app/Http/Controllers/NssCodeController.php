@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\MessageBag;
 use App\Http\Requests\NssCodeRequest;
-use App\Models\Nss;
+use App\Services\NssValidation\Nss;
 
 
 class NssCodeController extends Controller {

@@ -1,7 +1,10 @@
 <?php
 
-namespace App\Models;
+namespace App\Services\NssValidation;
 
+
+use App\Services\NssValidation\NssExceptions;
+use Illuminate\Support\Str;
 
 class Nss
 {
@@ -20,24 +23,27 @@ class Nss
     /** @var int $orderNumber Is an order number to distinguish people being born at the same place in the same year and month.*/
     private $orderNumber = 0;
     /** @var int $controlKey Is the "control key", 01 to 97, equal to 97-(the rest of the number modulo 97) or to 97 if the number is a multiple of 97*/
-    private $controlKey = 0;
+    private $controlKey = 0; 
+    /** @var bool $isTemporary */
+    private $isTemporary = false; 
+
+    private $exceptions;
 
     function __construct($fullCode)
     {
+        $this->exceptions = new NssExceptions();
+        $this->detectTemporary($fullCode);
+        $departmentNumberCount = $this->getDepartmentNumberOfSigns();
         $this->fullNssCode = $fullCode;
         $this->sex = substr($fullCode, 0, 1);
         $this->year = substr($fullCode, 1, 2);
         $this->month = substr($fullCode, 3, 2);
-        if (strstr($fullCode, "2a") || strstr($fullCode, "2b")) {
-            $this->department = substr($fullCode, 5, 2);
-            $this->comune = substr($fullCode, 7, 3);
-        }
-        else {
-            $this->department = substr($fullCode, 5, 3);
-            $this->comune = substr($fullCode, 8, 2);
-        }
+        $this->detectCorsica($fullCode);
+        $this->department = substr($fullCode, 5, $departmentNumberCount);
+        $this->comune = substr($fullCode, 11 - $departmentNumberCount, $departmentNumberCount == 3? 2 : 3);
         $this->orderNumber = substr($fullCode, 10, 3);
         $this->controlKey = substr($fullCode, 13, 2);
+        
     }
 
     function getFullNssCode()
@@ -78,5 +84,37 @@ class Nss
     function getControlKey()
     {
         return $this->controlKey;
+    }
+    
+    function isTemporary() {
+        return $this->isTemporary;
+    }
+
+    function detectTemporary($fullCode) {
+        if(Str::endsWith($fullCode, '99')) {
+            $nineCount = Str::substrCount(substr($fullCode, 4, 11), "9");
+            if($nineCount == 10)
+                $this->exceptions->add(NssExceptions::TempNoFrance);
+            else if($nineCount == 8)
+                $this->exceptions->add(NssExceptions::TempMainFrance);
+            else if($nineCount == 7)
+                $this->exceptions->add(NssExceptions::TempOverseas);
+        }
+    }
+
+    function getDepartmentNumberOfSigns() {
+       return $this->exceptions->has(NssExceptions::TempOverseas) ? 3 : 2;
+    }
+
+    function detectCorsica($fullCode) {
+        if (strstr($fullCode, "2a"))
+            $this->exceptions->add(NssExceptions::Corsica2a);
+        else if(strstr($fullCode, "2b"))
+            $this->exceptions->add(NssExceptions::Corsica2b);
+    }
+
+    function isCorsica(): bool {
+        return $this->exceptions->has(NssExceptions::Corsica2a)
+               || $this->exceptions->has(NssExceptions::Corsica2b);
     }
 }
