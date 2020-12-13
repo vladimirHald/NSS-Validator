@@ -4,6 +4,8 @@ namespace App\Services\NssValidation;
 
 
 use App\Services\NssValidation\NssExceptions;
+use App\Services\NssValidation\NssFormatter;
+use DateTime;
 use Illuminate\Support\Str;
 
 class Nss
@@ -30,6 +32,7 @@ class Nss
     private $correctCheckSum = 0;
 
     private $exceptions;
+    private $nssFormatter;
 
     public const CORSICA_2A_CORRECT_NUMBER = 1000000;
     public const CORSICA_2B_CORRECT_NUMBER = 2000000;
@@ -46,7 +49,7 @@ class Nss
         $this->year = substr($fullCode, 1, 2);
         $this->month = substr($fullCode, 3, 2);
         $this->department = substr($fullCode, 5, $departmentNumberCount);
-        $this->comune = substr($fullCode, 11 - $departmentNumberCount, $departmentNumberCount == 3? 2 : 3);
+        $this->comune = substr($fullCode, 5 + $departmentNumberCount, $departmentNumberCount == 3? 2 : 3);
         $this->orderNumber = substr($fullCode, 10, 3);
         $this->controlKey = substr($fullCode, 13, 2);
         $this->correctCheckSum = $this->calculateChecksum();
@@ -91,6 +94,30 @@ class Nss
     {
         return $this->controlKey;
     }
+
+    function getFullYear(): int {
+        $nssYear = $this->getYear();
+        $currentYear = $this->now()->format("y");
+        $currentCentury = $this->getCurrentCentury();
+        $prevCentury = $currentCentury - 1;
+
+        $fullYear = $nssYear > $currentYear ? $prevCentury . $nssYear : $currentCentury . $nssYear;
+
+        return (int) $fullYear;
+    }
+    
+    function getMonthWithoutZero(): int {
+        if($this->getMonth() > 9)
+        return $this->getMonth();
+
+        $correctMonth = substr($this->getMonth(), 1);
+
+        return (int) $correctMonth;
+    }
+
+    function getCurrentCentury() {
+        return substr($this->now()->format("Y"), 0, 2);
+    }
     
     function isTemporary() {
         return $this->isTemporary;
@@ -134,10 +161,19 @@ class Nss
     
     function calculateChecksum() {
             $correctNumber = 0;
+            $fullCode = $this->fullNssCode;
             if($this->isCorsica()) {
                 $fullCode = substr($this->fullNssCode, 0, 6) . '0' . substr($this->fullNssCode, 7);
                 $correctNumber = $this->isCorsica2a() ? self::CORSICA_2A_CORRECT_NUMBER : self::CORSICA_2B_CORRECT_NUMBER;
             }
             return 97 - (($fullCode - $correctNumber) % 97);
+    }
+
+    function now(): DateTime {
+        return new DateTime();
+    }
+
+    function toFormat(string $format = "S YY MM D O K C") {
+       return (new NssFormatter($this))->format($format);
     }
 }
